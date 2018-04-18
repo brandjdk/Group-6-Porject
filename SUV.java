@@ -1,5 +1,5 @@
 public class SUV extends Vehicle{
-   private String type = "SUV";
+   private String type = "SU";
    
    public SUV(){
       super();
