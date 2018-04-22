@@ -102,12 +102,8 @@ public class Customer {
 	}
 	
 	
-	public String getVehicles() {
-		String tempVehicleList = "Vehicle list for customer: " + this.getName() + "\n";
-		for (Vehicle v: vehicleList.values()) {
-			tempVehicleList += v.toString(); 
-		}
-		return tempVehicleList;
+	public Map<String, Vehicle> getVehicles() {
+		return vehicleList;
 	}
 	
 	
