@@ -12,6 +12,7 @@ public class Customer {
 	//Static Variables
 	private static int numCustomers;
 	private static int lastId = 1;
+	public static final MAX_PHONENUM_LENGTH = 10;
 	
 	
 	public Customer() {
@@ -41,6 +42,9 @@ public class Customer {
 	public void setPhoneNum(String phoneNum) {
 		if (phoneNum == null || phoneNum.equals("")) {
 			throw new IllegalArgumentException("Phone number can't be blank.");
+		}
+		if (!validatePhoneNum(phoneNum)) {
+			throw new IllegalArgumentExcpetion("Format is invalid. (Ex: XXX-XXX-XXXX)");
 		}
 		this.phoneNum = phoneNum;
 	}
@@ -116,6 +120,16 @@ public class Customer {
 		//Not sure if we want the vehicle list part of the customer toString()
 		//"Vehicle list: \n" + this.getVehicles();
 				
+	}
+	
+	
+	public static boolean validatePhoneNum(String phoneNum) {
+		if (phoneNum.length == MAX_PHONENUM_LENGTH) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	
