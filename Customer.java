@@ -15,13 +15,23 @@ public class Customer {
 	public static final int MAX_PHONENUM_LENGTH = 10;
 	
 	
-	public Customer() {
+	public Customer(String name, String phoneNum, String address) {
+		if (name == null || name.equals("")) {
+			throw new IllegalArgumentException("Name can't be blank!");
+		}
+		if (phoneNum == null || phoneNum.equals("")) {
+			throw new IllegalArgumentException("Phone number can't be blank!");
+		}
+		if (address == null || address.equals("")) {
+			throw new IllegalArgumentException("Address can't be blank!");
+		}		
+		this.name = name;
+		this.phoneNum = phoneNum;
+		this.address = address;
 		this.id = lastId++;
 		vehicleList = new HashMap<String, Vehicle>();
 		numCustomers++;
 	}
-	
-	
 	
 	
 	public int getId() {
