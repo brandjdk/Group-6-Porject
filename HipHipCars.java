@@ -1,4 +1,7 @@
+import javax.swing.*;
+
 public class HipHipCars{
+
    public static void main(String args[]){
       
    }
@@ -16,6 +19,7 @@ public class HipHipCars{
    }
    
    public static void Terminate(){
+      
       System.exit(0);
    }
 }
