@@ -22,6 +22,9 @@ public class Customer {
 		if (phoneNum == null || phoneNum.equals("")) {
 			throw new IllegalArgumentException("Phone number can't be blank!");
 		}
+		if (!validatePhoneNum(phoneNum)) {
+			throw new IllegalArgumentException("Phone number format is invalid!");
+		}
 		if (address == null || address.equals("")) {
 			throw new IllegalArgumentException("Address can't be blank!");
 		}		
@@ -117,6 +120,7 @@ public class Customer {
 		}
 		Customer c = (Customer)o;
 		if (c.getName().equals(this.getName()) && c.getPhoneNum().equals(this.getPhoneNum())) {
+			--lastId;
 			return true;
 		}
 		else {
