@@ -5,9 +5,7 @@ public class HipHipCars{
 
    public static void main(String args[]){
 	   ArrayList<Customer> customerList = new ArrayList<Customer>();
-	   
-	   AddCustomer(customerList);
-	   
+     
    }
    
    public static void AddCustomer(ArrayList<Customer> cList) {
@@ -267,22 +265,66 @@ public class HipHipCars{
    }
    
    public static void removeVehicle(Customer c){
-      
+      Vehicle remove = chooseVehicle(c);
+      if(remove == null){
+         return;
+      }
    }
    
    public static void doAnOilChange(Customer c){
-      
+      final double BASIC_COST = 30.00;
+      final double SYNTH_COST = 45.00;//for synthetic oil.
+      Vehicle work = chooseVehicle(c);
+      if(work == null){
+         return;
+      }
+      double total = 0.0;
+      if(work.usesSyntheticOil()){
+         total = SYNTH_COST * getTax();
+      }
+      else{
+         total = BASIC_COST * getTax();
+      }
    }
    
    public static void performCarDetailing(Customer c){
+      final double SUV_COST = 24.85;
+      final double SEDAN_COST = 17.85;
+      Vehicle work = chooseVehicle(c);
+      if(work == null){
+         return;
+      }
+      double total = 0.0;
+      if(work.getType().equals("SUV")){
+         total = SUV_COST*getTax();
+      }
+      else{
+         total = SEDAN_COST*getTax();
+      }
+      
       
    }
    
    public static void rotateTire(Customer c){
-      
+      final double OVERSIZE_FEE = 12.00;
+      final double ROTATION_COST = 25.00;
+      Vehicle work = chooseVehicle(c);
+      if(work == null){
+         return;
+      }
+      double total = ROTATION_COST;
+      if(work.hasOversizedTires()){
+         total += OVERSIZE_FEE;
+      }
    }
    
    public static void doInspection(Customer c){
+      final double INSPECT_COST = 16.00;
+      Vehicle work = chooseVehicle(c);
+      if(work == null){
+         return;
+      }
+      double total = INSPECT_COST * getTax();
       
    }
    
@@ -291,8 +333,12 @@ public class HipHipCars{
       return temp;
    }
    
+   public static double getTax(){
+      return 1.053;
+   }
+   
    public static void Terminate(){
-      
+      //ToDo - Add file updating
       System.exit(0);
    }
 }
