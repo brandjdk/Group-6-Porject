@@ -13,6 +13,9 @@ public class HipHipCars{
       boolean exit = false;
       while(!exit){
          String choice = JOptionPane.showInputDialog("What would you like to do?\n1. Add Customer\n2. Remove Customer\n3. Access a Customer\n4. Terminate the Program");
+         if(choice == null){
+            choice = "-1";
+         }
          switch(choice){
             case "1": AddCustomer(cList);
                break;
@@ -130,6 +133,9 @@ public class HipHipCars{
       boolean exit = false;
       while(!exit){
          String choice = JOptionPane.showInputDialog("What would you like to do with this customer?\n1. Add Vehicle\n2. Remove Vehicle\n3. Do an Oil Change\n4. Perform a Car Detailing\n5. Rotate a Vehicle's Tires\n6. Do an Inspection\n7. Return to Previous Menu");
+         if(choice == null){
+            choice = "-1";
+         }
          switch(choice){
             case "1": addVehicle(c);
                break;
@@ -152,7 +158,8 @@ public class HipHipCars{
    }
    
    public static void addVehicle(Customer c) {
-      int choice = 0;
+      int choice = -1;
+      String[] options = {"Sedan", "SUV"};
       Vehicle entryVehicle;
       String plateNum = null; 
       String make = null;
@@ -163,33 +170,41 @@ public class HipHipCars{
       boolean syntheticOil = false;
       String syntheticOilS = null;
    	
-      while(choice != 1 && choice != 2) {
-      	
+      while(choice != 0 && choice != 1) {
          try {
+            choice = JOptionPane.showOptionDialog(null, "Enter Vehicle Choice: ", "Vehicle Choice", JOptionPane.DEFAULT_OPTION, 
+               JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
          
-            choice = Integer.parseInt(JOptionPane.showInputDialog("Enter Vehicle Choice:\n 1- Sedan \n 2- SUV"));
          
          }catch(NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
          }
-      
       }
    	
-      if(choice == 1) {
+      if(choice == 0) {
          entryVehicle = new Sedan();
-      	
       }else {
          entryVehicle = new SUV();
       }
    	
       while(plateNum == null || plateNum.isEmpty()) {
+      	
          try {
+         	
             plateNum = JOptionPane.showInputDialog("Enter Vehicle Plate Number:");
          
+            if(c.getVehicles().containsKey(plateNum)) {
+               plateNum = null;
+               JOptionPane.showMessageDialog(null, "The entered plate number is already in use. Please enter a different one.");
+            }
+         
          }catch(IllegalArgumentException e) {
+         	
             JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
             plateNum = null;
+         	
          }
+      	
       }
    	
       entryVehicle.setPlateNum(plateNum);
@@ -285,9 +300,11 @@ public class HipHipCars{
    }
    
    public static void removeVehicle(Customer c){
-      Vehicle remove = chooseVehicle(c);
-      if(remove == null){
-         return;
+      String plateNum =  JOptionPane.showInputDialog(null, "Enter plate number of Vehicle you would like to Remove: ");
+   	
+      if(c.getVehicles().containsKey(plateNum)) {
+         Vehicle val = c.getVehicles().get(plateNum);
+         c.removeVehicle(val);
       }
    }
    
