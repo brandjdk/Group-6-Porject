@@ -322,6 +322,7 @@ public class HipHipCars{
       else{
          total = BASIC_COST * getTax();
       }
+      generateReceipt(c, work, "Oil Change", total);
    }
    
    public static void performCarDetailing(Customer c){
@@ -339,7 +340,7 @@ public class HipHipCars{
          total = SEDAN_COST*getTax();
       }
       
-      
+      generateReceipt(c, work, "Car Detail", total);
    }
    
    public static void rotateTire(Customer c){
@@ -353,6 +354,7 @@ public class HipHipCars{
       if(work.hasOversizedTires()){
          total += OVERSIZE_FEE;
       }
+      generateReceipt(c, work, "Rotate Tires", total);
    }
    
    public static void doInspection(Customer c){
@@ -363,6 +365,8 @@ public class HipHipCars{
       }
       double total = INSPECT_COST * getTax();
       
+      generateReceipt(c, work, "Inspection", total);
+      
    }
    
    public static Vehicle chooseVehicle(Customer c){
@@ -371,6 +375,10 @@ public class HipHipCars{
       boolean found = false;
       Object o = c;
       Map<String, Vehicle> vehicleList = c.getVehicles();
+      if(vehicleList.isEmpty()){
+    	  JOptionPane.showMessageDialog(null, "There are no vehicles associated with this customer.");
+    	  return null;
+      }
       Iterator keyIterate = vehicleList.keySet().iterator();
       String output = "Please enter the plate number associated with the vehicle you wish to access.\nOr enter -1 to cancel.";
       while(keyIterate.hasNext()){
@@ -402,5 +410,12 @@ public class HipHipCars{
    public static void Terminate(ArrayList<Customer> cList){
       //ToDo - Add file updating
       System.exit(0);
+   }
+   
+   
+   public static void generateReceipt(Customer c, Vehicle v, String serviceType, double cost) {
+	   String receipt = "Customer: " + c.getName();	   
+	   receipt += "\nVehicle Serviced: " + v.getPlateNum() + "\nService Performed: " + serviceType + "\nTotal Cost: $" + cost;
+	   JOptionPane.showMessageDialog(null, receipt);
    }
 }
