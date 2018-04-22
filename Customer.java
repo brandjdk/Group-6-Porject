@@ -90,9 +90,14 @@ public class Customer {
 		vehicleList.put(v.getPlateNum(), v);
 	}
 	
-	public void removeVehicle(Vehicle v) {
+	public Vehicle removeVehicle(Vehicle v) {
 		if (vehicleList.containsKey(v.getPlateNum())) {
+			Vehicle returnVehicle = v;
 			vehicleList.remove(v.getPlateNum());
+			return returnVehicle;
+		}
+		else {
+			return null;
 		}
 	}
 	
