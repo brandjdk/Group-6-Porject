@@ -1,7 +1,8 @@
-import java.util.ArrayList;
+import java.util.*
 import javax.swing.*;
 
 public class HipHipCars{
+
    public static void main(String args[]){
 	   ArrayList<Customer> customerList = new ArrayList<Customer>();
 	   
@@ -58,6 +59,7 @@ public class HipHipCars{
    }
    
    public static void Terminate(){
+      
       System.exit(0);
    }
 }

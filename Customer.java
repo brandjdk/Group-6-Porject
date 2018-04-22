@@ -12,10 +12,22 @@ public class Customer {
 	//Static Variables
 	private static int numCustomers;
 	private static int lastId = 1;
-	public static final MAX_PHONENUM_LENGTH = 10;
+	public static final int MAX_PHONENUM_LENGTH = 10;
 	
 	
-	public Customer() {
+	public Customer(String name, String phoneNum, String address) {
+		if (name == null || name.equals("")) {
+			throw new IllegalArgumentException("Name can't be blank!");
+		}
+		if (phoneNum == null || phoneNum.equals("")) {
+			throw new IllegalArgumentException("Phone number can't be blank!");
+		}
+		if (address == null || address.equals("")) {
+			throw new IllegalArgumentException("Address can't be blank!");
+		}		
+		this.name = name;
+		this.phoneNum = phoneNum;
+		this.address = address;
 		this.id = lastId++;
 		vehicleList = new HashMap<String, Vehicle>();
 		numCustomers++;
@@ -44,7 +56,7 @@ public class Customer {
 			throw new IllegalArgumentException("Phone number can't be blank.");
 		}
 		if (!validatePhoneNum(phoneNum)) {
-			throw new IllegalArgumentExcpetion("Format is invalid. (Ex: XXX-XXX-XXXX)");
+			throw new IllegalArgumentException("Format is invalid. (Ex: XXX-XXX-XXXX)");
 		}
 		this.phoneNum = phoneNum;
 	}
@@ -124,7 +136,7 @@ public class Customer {
 	
 	
 	public static boolean validatePhoneNum(String phoneNum) {
-		if (phoneNum.length == MAX_PHONENUM_LENGTH) {
+		if (phoneNum.length() == MAX_PHONENUM_LENGTH) {
 			return true;
 		}
 		else {
