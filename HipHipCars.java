@@ -4,54 +4,50 @@ import java.util.*;
 public class HipHipCars{
 
    public static void main(String args[]){
-   //ToDo - Add File Accessing
-      ArrayList<Customer> customerList = new ArrayList<Customer>();
+	   ArrayList<Customer> customerList = new ArrayList<Customer>();
+     
    }
    
    public static void AddCustomer(ArrayList<Customer> cList) {
-      try {
-         String name = JOptionPane.showInputDialog("Enter the customer's name: ");
-         String phoneNum = JOptionPane.showInputDialog("Enter the customer's phone number (Ex: XXXXXXXXXX): ");
-         String address = JOptionPane.showInputDialog("Enter the customer's address: " );
-         Customer newCustomer = new Customer(name, phoneNum, address);
-      		   
-         boolean isEquals = false;
-         for (Customer customer : cList) {
-            if (newCustomer.equals(customer)) {
-               isEquals = true;
-            }
-         }
-      		   
-         if (isEquals) {
-            JOptionPane.showMessageDialog(null, "Customer is a duplicate!");
-         }
-         else {
-            cList.add(newCustomer);
-            JOptionPane.showMessageDialog(null, "Customer added successfully!");
-         }
-      		   
-      		   
-         int choice = JOptionPane.showConfirmDialog(null, "Would you like to add a vehicle now?", "Add a Vehicle?", JOptionPane.YES_NO_OPTION);
-         if (choice == JOptionPane.YES_OPTION) {
-         		   
-         }
-         else {
-            return;
-         }
-      		   
-      		   
-      		   
-      		   
-      }
-      catch (IllegalArgumentException e) {
-         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-      }
+	   	   try {
+	   		   String name = JOptionPane.showInputDialog("Enter the customer's name: ");
+	   		   String phoneNum = JOptionPane.showInputDialog("Enter the customer's phone number (Ex: XXXXXXXXXX): ");
+	   		   String address = JOptionPane.showInputDialog("Enter the customer's address: " );
+	   		   Customer newCustomer = new Customer(name, phoneNum, address);
+	   		   
+	   		   boolean isEquals = false;
+	   		   for (Customer customer : cList) {
+	   			   if (newCustomer.equals(customer)) {
+	   				   isEquals = true;
+	   			   }
+	   		   }
+	   		   
+	   		   if (isEquals) {
+	   			   JOptionPane.showMessageDialog(null, "Customer is a duplicate!");
+	   		   }
+	   		   else {
+	   			   cList.add(newCustomer);
+	   			   JOptionPane.showMessageDialog(null, "Customer added successfully!");
+	   		   }
+	   		   
+	   		   
+	   		   int choice = JOptionPane.showConfirmDialog(null, "Would you like to add a vehicle?", "Add a Vehicle?", JOptionPane.YES_NO_OPTION);
+	   		   while (choice == JOptionPane.YES_OPTION) {
+	   			   addVehicle(newCustomer);
+	   			   choice = JOptionPane.showConfirmDialog(null, "Would you like to add another vehicle?", "Another Vehicle?", JOptionPane.YES_NO_OPTION);
+	   		   }		   
+	   		   
+	   	   }
+	   	   catch (IllegalArgumentException e) {
+	   		   JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+	   	   }
    }
    
    public static void RemoveCustomer(ArrayList<Customer> cList){
       String name = JOptionPane.showInputDialog("What is the name of the customer you wish to remove?");
       String phoneNum = JOptionPane.showInputDialog("What is the phone number of the customer you wish to remove?");
       Customer toRemove = null;
+      int counter = 0;
       try{
          Iterator<Customer> cIterator = cList.iterator();
          boolean found = false;
@@ -60,6 +56,9 @@ public class HipHipCars{
             if(temp.getName().equals(name) && temp.getPhoneNum().equals(phoneNum)){
                toRemove = temp;
                found = true;
+            }
+            else {
+            	counter++;
             }
          }
          if(!found){
@@ -70,7 +69,7 @@ public class HipHipCars{
          return;
       }
       if(toRemove != null){
-         //ToDo
+         cList.remove(counter);
       }
       else{
          JOptionPane.showMessageDialog(null, "The customer you tried to access was not found.\nReturnign to previous menu.");
@@ -260,8 +259,9 @@ public class HipHipCars{
       entryVehicle.setOilType(syntheticOil);
    	
       JOptionPane.showMessageDialog(null, entryVehicle.toString());
-   	
+   		
       c.addVehicle(entryVehicle);
+      
    }
    
    public static void removeVehicle(Customer c){
