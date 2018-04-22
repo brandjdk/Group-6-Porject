@@ -4,50 +4,74 @@ import java.util.*;
 public class HipHipCars{
 
    public static void main(String args[]){
-	   ArrayList<Customer> customerList = new ArrayList<Customer>();
-     
+   //ToDo - Add File Accessing
+      ArrayList<Customer> customerList = new ArrayList<Customer>();
+      mainMenu(customerList);
+   }
+   
+   public static void mainMenu(ArrayList<Customer> cList){
+      boolean exit = false;
+      while(!exit){
+         String choice = JOptionPane.showInputDialog("What would you like to do?\n1. Add Customer\n2. Remove Customer\n3. Access a Customer\n4. Terminate the Program");
+         switch(choice){
+            case "1": AddCustomer(cList);
+               break;
+            case "2": RemoveCustomer(cList);
+               break;
+            case "3": AccessCustomer(cList);
+               break;
+            case "4": Terminate(cList);
+               break;
+            default: JOptionPane.showMessageDialog(null, "Please only enter numbers corresponding to a menu option.");
+               break;
+         }
+      }
    }
    
    public static void AddCustomer(ArrayList<Customer> cList) {
-	   	   try {
-	   		   String name = JOptionPane.showInputDialog("Enter the customer's name: ");
-	   		   String phoneNum = JOptionPane.showInputDialog("Enter the customer's phone number (Ex: XXXXXXXXXX): ");
-	   		   String address = JOptionPane.showInputDialog("Enter the customer's address: " );
-	   		   Customer newCustomer = new Customer(name, phoneNum, address);
-	   		   
-	   		   boolean isEquals = false;
-	   		   for (Customer customer : cList) {
-	   			   if (newCustomer.equals(customer)) {
-	   				   isEquals = true;
-	   			   }
-	   		   }
-	   		   
-	   		   if (isEquals) {
-	   			   JOptionPane.showMessageDialog(null, "Customer is a duplicate!");
-	   		   }
-	   		   else {
-	   			   cList.add(newCustomer);
-	   			   JOptionPane.showMessageDialog(null, "Customer added successfully!");
-	   		   }
-	   		   
-	   		   
-	   		   int choice = JOptionPane.showConfirmDialog(null, "Would you like to add a vehicle?", "Add a Vehicle?", JOptionPane.YES_NO_OPTION);
-	   		   while (choice == JOptionPane.YES_OPTION) {
-	   			   addVehicle(newCustomer);
-	   			   choice = JOptionPane.showConfirmDialog(null, "Would you like to add another vehicle?", "Another Vehicle?", JOptionPane.YES_NO_OPTION);
-	   		   }		   
-	   		   
-	   	   }
-	   	   catch (IllegalArgumentException e) {
-	   		   JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-	   	   }
+      try {
+         String name = JOptionPane.showInputDialog("Enter the customer's name: ");
+         String phoneNum = JOptionPane.showInputDialog("Enter the customer's phone number (Ex: XXXXXXXXXX): ");
+         String address = JOptionPane.showInputDialog("Enter the customer's address: " );
+         Customer newCustomer = new Customer(name, phoneNum, address);
+      		   
+         boolean isEquals = false;
+         for (Customer customer : cList) {
+            if (newCustomer.equals(customer)) {
+               isEquals = true;
+            }
+         }
+      		   
+         if (isEquals) {
+            JOptionPane.showMessageDialog(null, "Customer is a duplicate!");
+         }
+         else {
+            cList.add(newCustomer);
+            JOptionPane.showMessageDialog(null, "Customer added successfully!");
+         }
+      		   
+      		   
+         int choice = JOptionPane.showConfirmDialog(null, "Would you like to add a vehicle now?", "Add a Vehicle?", JOptionPane.YES_NO_OPTION);
+         if (choice == JOptionPane.YES_OPTION) {
+         		   
+         }
+         else {
+            return;
+         }
+      		   
+      		   
+      		   
+      		   
+      }
+      catch (IllegalArgumentException e) {
+         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+      }
    }
    
    public static void RemoveCustomer(ArrayList<Customer> cList){
       String name = JOptionPane.showInputDialog("What is the name of the customer you wish to remove?");
       String phoneNum = JOptionPane.showInputDialog("What is the phone number of the customer you wish to remove?");
       Customer toRemove = null;
-      int counter = 0;
       try{
          Iterator<Customer> cIterator = cList.iterator();
          boolean found = false;
@@ -56,9 +80,6 @@ public class HipHipCars{
             if(temp.getName().equals(name) && temp.getPhoneNum().equals(phoneNum)){
                toRemove = temp;
                found = true;
-            }
-            else {
-            	counter++;
             }
          }
          if(!found){
@@ -69,7 +90,7 @@ public class HipHipCars{
          return;
       }
       if(toRemove != null){
-         cList.remove(counter);
+         //ToDo
       }
       else{
          JOptionPane.showMessageDialog(null, "The customer you tried to access was not found.\nReturnign to previous menu.");
@@ -108,7 +129,7 @@ public class HipHipCars{
    public static void accessMenu(Customer c){
       boolean exit = false;
       while(!exit){
-         String choice = JOptionPane.showInputDialog("");
+         String choice = JOptionPane.showInputDialog("What would you like to do with this customer?\n1. Add Vehicle\n2. Remove Vehicle\n3. Do an Oil Change\n4. Perform a Car Detailing\n5. Rotate a Vehicle's Tires\n6. Do an Inspection\n7. Return to Previous Menu");
          switch(choice){
             case "1": addVehicle(c);
                break;
@@ -259,9 +280,8 @@ public class HipHipCars{
       entryVehicle.setOilType(syntheticOil);
    	
       JOptionPane.showMessageDialog(null, entryVehicle.toString());
-   		
+   	
       c.addVehicle(entryVehicle);
-      
    }
    
    public static void removeVehicle(Customer c){
@@ -330,14 +350,39 @@ public class HipHipCars{
    
    public static Vehicle chooseVehicle(Customer c){
       Vehicle temp = null;
+      boolean exit = false;
+      boolean found = false;
+      Object o = c;
+      Map<String, Vehicle> vehicleList = c.getVehicles();
+      Iterator keyIterate = vehicleList.keySet().iterator();
+      String output = "Please enter the plate number associated with the vehicle you wish to access.\nOr enter -1 to cancel.";
+      while(keyIterate.hasNext()){
+         output += "\n" + keyIterate.next();
+      }
+      while(!exit && !found){
+         String choice = JOptionPane.showInputDialog(output);
+         if(choice.equals("-1")){
+            JOptionPane.showMessageDialog(null, "Returning to previos menu.");
+            exit = true;
+         }
+         else{
+            temp = vehicleList.get(choice);
+            if(temp != null){
+               found = true;
+            }
+            else{
+               JOptionPane.showMessageDialog(null, "The entered plate number does not match any vehicle associated with this customer.\nPlease reenter the plate number or enter -1 to cancel");
+            } 
+         }
+      }
       return temp;
    }
    
    public static double getTax(){
-      return 1.053;
+      return 1.06;
    }
    
-   public static void Terminate(){
+   public static void Terminate(ArrayList<Customer> cList){
       //ToDo - Add file updating
       System.exit(0);
    }
