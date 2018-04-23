@@ -72,6 +72,10 @@ public class HipHipCars{
    }
    
    public static void RemoveCustomer(ArrayList<Customer> cList){
+      if(cList.isEmpty()){
+         JOptionPane.showMessageDialog(null, "There are no customers stored in the system.");
+         return;
+      }
       String name = JOptionPane.showInputDialog("What is the name of the customer you wish to remove?");
       String phoneNum = JOptionPane.showInputDialog("What is the phone number of the customer you wish to remove?");
       Customer toRemove = null;
@@ -101,6 +105,10 @@ public class HipHipCars{
    }
    
    public static void AccessCustomer(ArrayList<Customer> cList){
+      if(cList.isEmpty()){
+         JOptionPane.showMessageDialog(null, "There are no customers stored in the system.");
+         return;
+      }
       String name = JOptionPane.showInputDialog("What is the name of the customer you wish to access?");
       String phoneNum = JOptionPane.showInputDialog("What is the phone number of the customer you wish to access?");
       Customer accessed = null;
@@ -376,8 +384,8 @@ public class HipHipCars{
       Object o = c;
       Map<String, Vehicle> vehicleList = c.getVehicles();
       if(vehicleList.isEmpty()){
-    	  JOptionPane.showMessageDialog(null, "There are no vehicles associated with this customer.");
-    	  return null;
+         JOptionPane.showMessageDialog(null, "There are no vehicles associated with this customer.");
+         return null;
       }
       Iterator keyIterate = vehicleList.keySet().iterator();
       String output = "Please enter the plate number associated with the vehicle you wish to access.\nOr enter -1 to cancel.";
@@ -414,8 +422,8 @@ public class HipHipCars{
    
    
    public static void generateReceipt(Customer c, Vehicle v, String serviceType, double cost) {
-	   String receipt = "Customer: " + c.getName();	   
-	   receipt += "\nVehicle Serviced: " + v.getPlateNum() + "\nService Performed: " + serviceType + "\nTotal Cost: $" + cost;
-	   JOptionPane.showMessageDialog(null, receipt);
+      String receipt = "Customer: " + c.getName();	   
+      receipt += "\nVehicle Serviced: " + v.getPlateNum() + "\nService Performed: " + serviceType + "\nTotal Cost: $" + cost;
+      JOptionPane.showMessageDialog(null, receipt);
    }
 }
