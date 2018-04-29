@@ -7,10 +7,20 @@ public abstract class Vehicle{
       numVehicles++;
    }
    
+   public Vehicle(String plateNum, String make, String model, String color, boolean oversizedTires, boolean syntheticOil){
+      this.plateNum = plateNum;
+      this.make = make;
+      this.model = model;
+      this.color = color;
+      this.oversizedTires = oversizedTires;
+      this.syntheticOil = syntheticOil;
+      numVehicles++;
+   }
+   
    public void setPlateNum(String plateNum) {
-	  if (plateNum == null || plateNum.equals("")) {
-			throw new IllegalArgumentException("Plate number can't be blank!");
-	  }
+      if (plateNum == null || plateNum.equals("")) {
+         throw new IllegalArgumentException("Plate number can't be blank!");
+      }
       this.plateNum = plateNum;
    }
    
@@ -19,9 +29,9 @@ public abstract class Vehicle{
    }
    
    public void setMake(String make){
-	  if (make == null || make.equals("")) {
-			throw new IllegalArgumentException("Car maker can't be blank!");
-	  }
+      if (make == null || make.equals("")) {
+         throw new IllegalArgumentException("Car maker can't be blank!");
+      }
       this.make = make;
    }
    
@@ -30,9 +40,9 @@ public abstract class Vehicle{
    }
    
    public void setModel(String model){
-	  if (model == null || model.equals("")) {
-			throw new IllegalArgumentException("Car model can't be blank!");
-	  }
+      if (model == null || model.equals("")) {
+         throw new IllegalArgumentException("Car model can't be blank!");
+      }
       this.model = model;
    }
    
@@ -41,9 +51,9 @@ public abstract class Vehicle{
    }
    
    public void setColor(String color){
-	  if (color == null || color.equals("")) {
-			throw new IllegalArgumentException("Car color can't be blank!");
-	  }
+      if (color == null || color.equals("")) {
+         throw new IllegalArgumentException("Car color can't be blank!");
+      }
       this.color = color;
    }
    
@@ -80,6 +90,6 @@ public abstract class Vehicle{
    }
    
    public String saveFormat() {
-	   return "%" + plateNum + "&" + make + "&" + model + "&" + color + "&" + oversizedTires + "&" + syntheticOil;
+      return "%%*TYPE*&&" + plateNum + "&&" + make + "&&" + model + "&&" + color + "&&" + oversizedTires + "&&" + syntheticOil;
    }
 }

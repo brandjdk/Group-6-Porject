@@ -4,6 +4,10 @@ public class SUV extends Vehicle{
    public SUV(){
       super();
    }
+    
+   public SUV(String plateNum, String make, String model, String color, boolean oversizedTires, boolean syntheticOil){
+      super(plateNum, make, model, color, oversizedTires, syntheticOil);
+   }
    
    public String getType(){
       return type;
@@ -13,5 +17,11 @@ public class SUV extends Vehicle{
       String output = super.toString();
       output = output.replace("*TYPE*", type);
       return output;
+   }
+   
+   public String saveFormat() {
+      String out = super.saveFormat();
+      out = out.replace("*TYPE*", type);
+      return out;
    }
 }
