@@ -1,11 +1,12 @@
 import javax.swing.*;
 import java.util.*;
+import java.io.*;
 
 public class HipHipCars{
 
    public static void main(String args[]){
-   //ToDo - Add File Accessing
       ArrayList<Customer> customerList = new ArrayList<Customer>();
+      readFile(customerList);
       mainMenu(customerList);
    }
    
@@ -313,18 +314,18 @@ public class HipHipCars{
       
       try {
          
-      plateNum =  JOptionPane.showInputDialog(null, "Enter plate number of Vehicle you would like to Remove: ");
+         plateNum =  JOptionPane.showInputDialog(null, "Enter plate number of Vehicle you would like to Remove: ");
       
-      if(plateNum.isEmpty() || plateNum.equals(null)) {
-			
-			JOptionPane.showMessageDialog(null, "Invalid Plate Number.", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-		
-		}catch(IllegalArgumentException e) {
-			
-			JOptionPane.showMessageDialog(null, "Invalid Plate Number.", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-		
+         if(plateNum.isEmpty() || plateNum.equals(null)) {
+         
+            JOptionPane.showMessageDialog(null, "Invalid Plate Number.", "Error", JOptionPane.ERROR_MESSAGE);
+         }
+      
+      }catch(IllegalArgumentException e) {
+      	
+         JOptionPane.showMessageDialog(null, "Invalid Plate Number.", "Error", JOptionPane.ERROR_MESSAGE);
+      }
+   	
    	
       if(c.getVehicles().containsKey(plateNum)) {
          Vehicle val = c.getVehicles().get(plateNum);
@@ -436,6 +437,53 @@ public class HipHipCars{
       System.exit(0);
    }
    
+   public static void readFile(ArrayList<Customer> cList){
+      try{
+         Scanner scan = new Scanner(new FileInputStream(new File("")));
+         do{
+            cList.add(generateCustomer(scan.nextLine()));
+         }while(scan.hasNextLine());
+         scan.close();
+      }catch(FileNotFoundException e){
+         JOptionPane.showMessageDialog(null, "File does not exist or was not found.");
+      }
+   }
+   
+   public static Customer generateCustomer(String data){
+      String[] values = data.split("%%");
+      Customer temp = populateCustomer(values[0]);
+      for(int x=1;x<values.length;x++){
+         temp.addVehicle(populateVehicle(values[x]));
+      }
+      return temp;
+   }
+   
+   public static Customer populateCustomer(String data){
+      String[] values = data.split("&&");
+      int ID = Integer.parseInt(values[0]);
+      Customer temp = new Customer(values[1], values[2], values[3], ID);
+      return temp;
+   }
+   
+   public static Vehicle populateVehicle(String data){
+      String[] values = data.split("&&");
+      boolean tires = false;
+      boolean oil = false;
+      Vehicle temp = null;
+      if(values[5].equals("true")){
+         tires = true;
+      }
+      if(values[6].equals("true")){
+         oil = true;
+      }
+      if(values[0].equals("SUV")){
+         temp = new SUV(values[1], values[2], values[3], values[4], tires, oil);
+      }
+      else if(values[0].equals("Sedan")){
+         temp = new Sedan(values[1], values[2], values[3], values[4], tires, oil);
+      }
+      return temp;
+   }
    
    public static void generateReceipt(Customer c, Vehicle v, String serviceType, double cost) {
       String receipt = "Customer: " + c.getName();	   
