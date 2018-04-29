@@ -70,6 +70,7 @@ public class MainImplementation {
 				
 			plateNum = JOptionPane.showInputDialog("Enter Vehicle Plate Number:");
 			
+			
 			if(c.getVehiclesList().containsKey(plateNum)) {
 				
 				plateNum = null;
@@ -77,7 +78,7 @@ public class MainImplementation {
 			
 			}catch(IllegalArgumentException e) {
 				
-				JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+				JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
 				plateNum = null;
 				
 			}
@@ -95,7 +96,7 @@ public class MainImplementation {
 			
 			}catch(IllegalArgumentException e) {
 				
-				JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+				JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
 				make = null;
 				
 			}
@@ -113,7 +114,7 @@ public class MainImplementation {
 			
 			}catch(IllegalArgumentException e) {
 				
-				JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+				JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
 				model = null;
 				
 			}
@@ -131,7 +132,7 @@ public class MainImplementation {
 			
 			}catch(IllegalArgumentException e) {
 				
-				JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+				JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
 				color = null;
 				
 			}
@@ -151,13 +152,13 @@ public class MainImplementation {
 			if(!(overSizedTiresS.equalsIgnoreCase("Yes") || overSizedTiresS.equalsIgnoreCase("No"))) {
 				
 				overSizedTiresS = null;
-				JOptionPane.showMessageDialog(null, "Please Enter 'Yes' or 'No'");
+				JOptionPane.showMessageDialog(null, "Please Enter 'Yes' or 'No'", "Error", JOptionPane.ERROR_MESSAGE);
 				
 			}
 			
 			}catch(IllegalArgumentException e) {
 				
-				JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+				JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
 				overSizedTiresS = null;
 				
 			}
@@ -187,13 +188,13 @@ public class MainImplementation {
 			if(!(syntheticOilS.equalsIgnoreCase("Yes") || syntheticOilS.equalsIgnoreCase("No"))) {
 				
 				syntheticOilS = null;
-				JOptionPane.showMessageDialog(null, "Please Enter 'Yes' or 'No'");
+				JOptionPane.showMessageDialog(null, "Please Enter 'Yes' or 'No'", "Error", JOptionPane.ERROR_MESSAGE);
 				
 			}
 			
 			}catch(IllegalArgumentException e) {
 				
-				JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+				JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
 				syntheticOilS = null;
 				
 			}
@@ -226,3 +227,4 @@ public class MainImplementation {
 		
 	}
 }
+
