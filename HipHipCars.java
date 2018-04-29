@@ -468,7 +468,9 @@ public class HipHipCars{
    }
    
    public static void Terminate(ArrayList<Customer> cList){
-      //ToDo - Add file updating
+      
+      addCustomerToFile(cList);
+	   
       System.exit(0);
    }
    public static void readFile(ArrayList<Customer> cList){
@@ -527,5 +529,37 @@ public class HipHipCars{
 	   receipt += "\nVehicle Serviced: " + v.getPlateNum() + "\nService Performed: " + serviceType + "\nTotal Cost: $" + String.format("%.2f", cost);
 	   JOptionPane.showMessageDialog(null, receipt);
    }
+	
+   public static void addCustomerToFile(ArrayList<Customer> cList) {
+	   
+	   FileOutputStream fos = null;
+	   PrintWriter pw = null;
+	   
+	   File file = new File("customer.txt");
+
+	   try {
+		fos = new FileOutputStream(file, true);
+		pw = new PrintWriter(fos);
+		
+		Iterator it = cList.iterator();
+			
+		while(it.hasNext()) {
+			
+			Customer next = (Customer) it.next();
+			pw.write(next.saveFormat() + "\r\n");		
+		}
+	
+	} catch (FileNotFoundException e) {
+		
+		e.printStackTrace();
+	}
+	   
+	
+	  pw.close();
+	   
+	   
+   }
+   
+	
    
 }
