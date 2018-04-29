@@ -148,7 +148,7 @@ public class Customer {
       String customerFormat = id + "&&" + name + "&&" + address + "&&" + phoneNum;
       String vehicleFormat = "";
       for (Vehicle v : vehicleList.values()) {
-         vehicleFormat += v.toString();
+         vehicleFormat += v.saveFormat();
       }
       return customerFormat + vehicleFormat;
    	
