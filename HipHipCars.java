@@ -308,7 +308,23 @@ public class HipHipCars{
    }
    
    public static void removeVehicle(Customer c){
-      String plateNum =  JOptionPane.showInputDialog(null, "Enter plate number of Vehicle you would like to Remove: ");
+      
+      String plateNum = null;
+      
+      try {
+         
+      plateNum =  JOptionPane.showInputDialog(null, "Enter plate number of Vehicle you would like to Remove: ");
+      
+      if(plateNum.isEmpty() || plateNum.equals(null)) {
+			
+			JOptionPane.showMessageDialog(null, "Invalid Plate Number.", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		}catch(IllegalArgumentException e) {
+			
+			JOptionPane.showMessageDialog(null, "Invalid Plate Number.", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
    	
       if(c.getVehicles().containsKey(plateNum)) {
          Vehicle val = c.getVehicles().get(plateNum);
