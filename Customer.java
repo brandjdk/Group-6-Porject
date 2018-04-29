@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Iterator;
 
 public class Customer {
 
@@ -36,10 +37,14 @@ public class Customer {
 		numCustomers++;
 	}
 	
-	
-	public int getId() {
-		return this.id;
+	public Customer(String name, String phoneNum, String address, int id) {
+		this.name = name;
+		this.phoneNum = phoneNum;
+		this.address = address;
+		this.id = id;
+		vehicleList = new HashMap<String, Vehicle>();
 	}
+	
 	
 	
 	public void setName(String name) {
@@ -137,6 +142,16 @@ public class Customer {
 		//Not sure if we want the vehicle list part of the customer toString()
 		//"Vehicle list: \n" + this.getVehicles();
 				
+	}
+	
+	public String saveFormat() {
+		String customerFormat = id + "&" + name + "&" + address + "&" + phoneNum;
+		String vehicleFormat = "";
+		for (Vehicle v : vehicleList.values()) {
+			vehicleFormat += v.toString();
+		}
+		return customerFormat + vehicleFormat;
+		
 	}
 	
 	

@@ -78,4 +78,8 @@ public abstract class Vehicle{
          + "\nColor: " + color + "\nHas Oversized Tires: " + oversizedTires + "\nUses Synthetic Oil: " + syntheticOil;
       return output;
    }
+   
+   public String saveFormat() {
+	   return "%" + plateNum + "&" + make + "&" + model + "&" + color + "&" + oversizedTires + "&" + syntheticOil;
+   }
 }
