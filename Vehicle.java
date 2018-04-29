@@ -7,7 +7,10 @@ public abstract class Vehicle{
       numVehicles++;
    }
    
-   public void setPlateNum(String plateNum){
+   public void setPlateNum(String plateNum) {
+	  if (plateNum == null || plateNum.equals("")) {
+			throw new IllegalArgumentException("Plate number can't be blank!");
+	  }
       this.plateNum = plateNum;
    }
    
@@ -16,6 +19,9 @@ public abstract class Vehicle{
    }
    
    public void setMake(String make){
+	  if (make == null || make.equals("")) {
+			throw new IllegalArgumentException("Car maker can't be blank!");
+	  }
       this.make = make;
    }
    
@@ -24,6 +30,9 @@ public abstract class Vehicle{
    }
    
    public void setModel(String model){
+	  if (model == null || model.equals("")) {
+			throw new IllegalArgumentException("Car model can't be blank!");
+	  }
       this.model = model;
    }
    
@@ -32,6 +41,9 @@ public abstract class Vehicle{
    }
    
    public void setColor(String color){
+	  if (color == null || color.equals("")) {
+			throw new IllegalArgumentException("Car color can't be blank!");
+	  }
       this.color = color;
    }
    
