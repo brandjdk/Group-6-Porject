@@ -185,7 +185,7 @@ public class HipHipCars{
          
          
          }catch(NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
          }
       }
    	
@@ -203,12 +203,12 @@ public class HipHipCars{
          
             if(c.getVehicles().containsKey(plateNum)) {
                plateNum = null;
-               JOptionPane.showMessageDialog(null, "The entered plate number is already in use. Please enter a different one.");
+               JOptionPane.showMessageDialog(null, "The entered plate number is already in use. Please enter a different one.", "Error", JOptionPane.ERROR_MESSAGE);
             }
          
          }catch(IllegalArgumentException e) {
          	
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
             plateNum = null;
          	
          }
@@ -222,7 +222,7 @@ public class HipHipCars{
             make = JOptionPane.showInputDialog("Enter Vehicle Make:");
          
          }catch(IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
             make = null;
          }
       }
@@ -233,7 +233,7 @@ public class HipHipCars{
          try {
             model = JOptionPane.showInputDialog("Enter Vehicle Model:");
          }catch(IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
             model = null;
          }
       }
@@ -246,7 +246,7 @@ public class HipHipCars{
             color = JOptionPane.showInputDialog("Enter Vehicle Color:");
          
          }catch(IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
             color = null;
          }
       	
@@ -259,11 +259,11 @@ public class HipHipCars{
             overSizedTiresS = JOptionPane.showInputDialog("Are the Vehicle's Tires OverSized? ('Yes' or 'No'):");
             if(!(overSizedTiresS.equals("Yes") || overSizedTiresS.equals("No"))) {
                overSizedTiresS = null;
-               JOptionPane.showMessageDialog(null, "Please Enter 'Yes' or 'No'");
+               JOptionPane.showMessageDialog(null, "Please Enter 'Yes' or 'No'", "Error", JOptionPane.ERROR_MESSAGE);
             }
          
          }catch(IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
             overSizedTiresS = null;
          }
       	
@@ -283,11 +283,11 @@ public class HipHipCars{
             syntheticOilS = JOptionPane.showInputDialog("Is the Vehicle using Synthetic Oil ('Yes' or 'No'):");
             if(!(syntheticOilS.equals("Yes") || syntheticOilS.equals("No"))) {
                syntheticOilS = null;
-               JOptionPane.showMessageDialog(null, "Please Enter 'Yes' or 'No'");
+               JOptionPane.showMessageDialog(null, "Please Enter 'Yes' or 'No'", "Error", JOptionPane.ERROR_MESSAGE);
             }
          
          }catch(IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
             syntheticOilS = null;
          }
       	
