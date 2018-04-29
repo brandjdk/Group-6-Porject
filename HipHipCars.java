@@ -1,12 +1,11 @@
 import javax.swing.*;
 import java.util.*;
-import java.io.*;
 
 public class HipHipCars{
 
    public static void main(String args[]){
+   //ToDo - Add File Accessing
       ArrayList<Customer> customerList = new ArrayList<Customer>();
-      readFile(customerList);
       mainMenu(customerList);
    }
    
@@ -33,12 +32,45 @@ public class HipHipCars{
    }
    
    public static void AddCustomer(ArrayList<Customer> cList) {
-      try {
-         String name = JOptionPane.showInputDialog("Enter the customer's name: ");
-         String phoneNum = JOptionPane.showInputDialog("Enter the customer's phone number (Ex: XXXXXXXXXX): ");
-         String address = JOptionPane.showInputDialog("Enter the customer's address: " );
-         Customer newCustomer = new Customer(name, phoneNum, address);
-      		   
+	  
+	   Customer newCustomer = new Customer();
+	  
+	  boolean isNameValid = false;
+	  while (!isNameValid) {
+		  try {
+			  newCustomer.setName(JOptionPane.showInputDialog("Enter the customer's name: "));
+			  isNameValid = true;
+		  }
+		  catch (IllegalArgumentException e) {
+			  JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			  isNameValid = false;
+		  }
+	  }
+	  
+	  boolean isPhoneValid = false;
+	  while (!isPhoneValid) {
+		  try {
+			  newCustomer.setPhoneNum(JOptionPane.showInputDialog("Enter the customer's phone number (Ex: XXXXXXXXXX): "));
+			  isPhoneValid = true;
+		  }
+		  catch (IllegalArgumentException e) {
+			  JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			  isPhoneValid = false;
+		  }
+	  }
+	  
+	  boolean isAddressValid = false;
+	  while (!isAddressValid) {
+		  try {
+			  newCustomer.setAddress(JOptionPane.showInputDialog("Enter the customer's address: "));
+			  isAddressValid = true;
+		  }
+		  catch (IllegalArgumentException e) {
+			  JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			  isAddressValid = false;
+		  }
+	  }
+	  
          boolean isEquals = false;
          for (Customer customer : cList) {
             if (newCustomer.equals(customer)) {
@@ -56,30 +88,22 @@ public class HipHipCars{
       		   
       		   
          int choice = JOptionPane.showConfirmDialog(null, "Would you like to add a vehicle now?", "Add a Vehicle?", JOptionPane.YES_NO_OPTION);
-         if (choice == JOptionPane.YES_OPTION) {
-         		   
-         }
-         else {
-            return;
-         }
+         while(choice == JOptionPane.YES_OPTION) {
+        	 addVehicle(newCustomer);
+        	 choice = JOptionPane.showConfirmDialog(null, "Would you like to add another vehicle?", "Another vehicle?", JOptionPane.YES_NO_OPTION);
+         }      		   
       		   
-      		   
-      		   
-      		   
-      }
-      catch (IllegalArgumentException e) {
-         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-      }
    }
    
    public static void RemoveCustomer(ArrayList<Customer> cList){
-      if(cList.isEmpty()){
-         JOptionPane.showMessageDialog(null, "There are no customers stored in the system.");
-         return;
-      }
+	  if (cList.isEmpty()) {
+		  JOptionPane.showMessageDialog(null, "Customer list is empty!");
+		  return;
+	  }
       String name = JOptionPane.showInputDialog("What is the name of the customer you wish to remove?");
       String phoneNum = JOptionPane.showInputDialog("What is the phone number of the customer you wish to remove?");
       Customer toRemove = null;
+      int index = 0;
       try{
          Iterator<Customer> cIterator = cList.iterator();
          boolean found = false;
@@ -88,6 +112,9 @@ public class HipHipCars{
             if(temp.getName().equals(name) && temp.getPhoneNum().equals(phoneNum)){
                toRemove = temp;
                found = true;
+            }
+            else {
+            	++index;
             }
          }
          if(!found){
@@ -98,44 +125,46 @@ public class HipHipCars{
          return;
       }
       if(toRemove != null){
-         //ToDo
+         cList.remove(index);
+         JOptionPane.showMessageDialog(null, "Customer has been removed.");
       }
       else{
-         JOptionPane.showMessageDialog(null, "The customer you tried to access was not found.\nReturnign to previous menu.");
+         JOptionPane.showMessageDialog(null, "The customer you tried to access was not found.\nReturning to previous menu.");
       }
    }
    
    public static void AccessCustomer(ArrayList<Customer> cList){
-      if(cList.isEmpty()){
-         JOptionPane.showMessageDialog(null, "There are no customers stored in the system.");
-         return;
-      }
-      String name = JOptionPane.showInputDialog("What is the name of the customer you wish to access?");
-      String phoneNum = JOptionPane.showInputDialog("What is the phone number of the customer you wish to access?");
-      Customer accessed = null;
-      try{
-         Iterator<Customer> cIterator = cList.iterator();
-         boolean found = false;
-         while(cIterator.hasNext() && !found){
-            Customer temp = cIterator.next();
-            if(temp.getName().equals(name) && temp.getPhoneNum().equals(phoneNum)){
-               accessed = temp;
-               found = true;
-            }
-         }
-         if(!found){
-            throw new Exception();
-         }
-      }catch(Exception e){
-         JOptionPane.showMessageDialog(null, "The customer you tried to access was not found.\nReturnign to previous menu.");
-         return;
-      }
-      if(accessed != null){
-         accessMenu(accessed);
-      }
-      else{
-         JOptionPane.showMessageDialog(null, "The customer you tried to access was not found.\nReturnign to previous menu.");
-      }
+	   if (cList.isEmpty()) {
+			  JOptionPane.showMessageDialog(null, "Customer list is empty!");
+			  return;
+	   }
+	   String name = JOptionPane.showInputDialog("What is the name of the customer you wish to access?");
+	   String phoneNum = JOptionPane.showInputDialog("What is the phone number of the customer you wish to access?");
+	   Customer accessed = null;
+	   try{
+		   Iterator<Customer> cIterator = cList.iterator();
+		   boolean found = false;
+		   while(cIterator.hasNext() && !found){
+			   Customer temp = cIterator.next();
+			   if(temp.getName().equals(name) && temp.getPhoneNum().equals(phoneNum)){
+				   accessed = temp;
+				   found = true;
+			   }
+		   }
+		   if(!found){
+			   throw new Exception();
+		   }
+	   }
+	   catch(Exception e){
+		   JOptionPane.showMessageDialog(null, "The customer you tried to access was not found.\nReturnign to previous menu.");
+		       return;
+	   }
+	   if(accessed != null){
+		   accessMenu(accessed);
+	   }	
+	   else{
+		   JOptionPane.showMessageDialog(null, "The customer you tried to access was not found.\nReturning to previous menu.");
+	   }
    }
    
    public static void accessMenu(Customer c){
@@ -186,7 +215,7 @@ public class HipHipCars{
          
          
          }catch(NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
          }
       }
    	
@@ -204,12 +233,12 @@ public class HipHipCars{
          
             if(c.getVehicles().containsKey(plateNum)) {
                plateNum = null;
-               JOptionPane.showMessageDialog(null, "The entered plate number is already in use. Please enter a different one.", "Error", JOptionPane.ERROR_MESSAGE);
+               JOptionPane.showMessageDialog(null, "The entered plate number is already in use. Please enter a different one.");
             }
          
          }catch(IllegalArgumentException e) {
          	
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
             plateNum = null;
          	
          }
@@ -223,7 +252,7 @@ public class HipHipCars{
             make = JOptionPane.showInputDialog("Enter Vehicle Make:");
          
          }catch(IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
             make = null;
          }
       }
@@ -234,7 +263,7 @@ public class HipHipCars{
          try {
             model = JOptionPane.showInputDialog("Enter Vehicle Model:");
          }catch(IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
             model = null;
          }
       }
@@ -247,7 +276,7 @@ public class HipHipCars{
             color = JOptionPane.showInputDialog("Enter Vehicle Color:");
          
          }catch(IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
             color = null;
          }
       	
@@ -258,19 +287,19 @@ public class HipHipCars{
       while(overSizedTiresS == null || overSizedTiresS.isEmpty()) {
          try {
             overSizedTiresS = JOptionPane.showInputDialog("Are the Vehicle's Tires OverSized? ('Yes' or 'No'):");
-            if(!(overSizedTiresS.equals("Yes") || overSizedTiresS.equals("No"))) {
+            if(!(overSizedTiresS.equalsIgnoreCase("Yes") || overSizedTiresS.equalsIgnoreCase("No"))) {
                overSizedTiresS = null;
-               JOptionPane.showMessageDialog(null, "Please Enter 'Yes' or 'No'", "Error", JOptionPane.ERROR_MESSAGE);
+               JOptionPane.showMessageDialog(null, "Please Enter 'Yes' or 'No'");
             }
          
          }catch(IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
             overSizedTiresS = null;
          }
       	
       }
    	
-      if(overSizedTiresS.equals("Yes")) {
+      if(overSizedTiresS.equalsIgnoreCase("Yes")) {
          overSizedTires = true;
       }
       else {
@@ -282,19 +311,19 @@ public class HipHipCars{
       while(syntheticOilS == null || syntheticOilS.isEmpty()) {
          try {
             syntheticOilS = JOptionPane.showInputDialog("Is the Vehicle using Synthetic Oil ('Yes' or 'No'):");
-            if(!(syntheticOilS.equals("Yes") || syntheticOilS.equals("No"))) {
+            if(!(syntheticOilS.equalsIgnoreCase("Yes") || syntheticOilS.equalsIgnoreCase("No"))) {
                syntheticOilS = null;
-               JOptionPane.showMessageDialog(null, "Please Enter 'Yes' or 'No'", "Error", JOptionPane.ERROR_MESSAGE);
+               JOptionPane.showMessageDialog(null, "Please Enter 'Yes' or 'No'");
             }
          
          }catch(IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter appropriate entry value.");
             syntheticOilS = null;
          }
       	
       }
    	
-      if(syntheticOilS.equals("Yes")) {
+      if(syntheticOilS.equalsIgnoreCase("Yes")) {
          syntheticOil = true;
       }
       else {
@@ -309,27 +338,16 @@ public class HipHipCars{
    }
    
    public static void removeVehicle(Customer c){
-      
-      String plateNum = null;
-      
-      try {
-         
-         plateNum =  JOptionPane.showInputDialog(null, "Enter plate number of Vehicle you would like to Remove: ");
-      
-         if(plateNum.isEmpty() || plateNum.equals(null)) {
-         
-            JOptionPane.showMessageDialog(null, "Invalid Plate Number.", "Error", JOptionPane.ERROR_MESSAGE);
-         }
-      
-      }catch(IllegalArgumentException e) {
-      	
-         JOptionPane.showMessageDialog(null, "Invalid Plate Number.", "Error", JOptionPane.ERROR_MESSAGE);
-      }
-   	
+      String plateNum =  JOptionPane.showInputDialog(null, "Enter plate number of Vehicle you would like to Remove: ");
    	
       if(c.getVehicles().containsKey(plateNum)) {
          Vehicle val = c.getVehicles().get(plateNum);
+         String tempPlate = val.getPlateNum();
          c.removeVehicle(val);
+         JOptionPane.showMessageDialog(null, "Vehicle with plate number: " + tempPlate + " was removed.", "Delete Confirmation", JOptionPane.INFORMATION_MESSAGE);
+      }
+      else {
+    	  JOptionPane.showMessageDialog(null, "Vehicle could not be found!", "Error", JOptionPane.ERROR_MESSAGE);
       }
    }
    
@@ -401,8 +419,8 @@ public class HipHipCars{
       Object o = c;
       Map<String, Vehicle> vehicleList = c.getVehicles();
       if(vehicleList.isEmpty()){
-         JOptionPane.showMessageDialog(null, "There are no vehicles associated with this customer.");
-         return null;
+    	  JOptionPane.showMessageDialog(null, "There are no vehicles associated with this customer.");
+    	  return null;
       }
       Iterator keyIterate = vehicleList.keySet().iterator();
       String output = "Please enter the plate number associated with the vehicle you wish to access.\nOr enter -1 to cancel.";
@@ -412,7 +430,7 @@ public class HipHipCars{
       while(!exit && !found){
          String choice = JOptionPane.showInputDialog(output);
          if(choice.equals("-1")){
-            JOptionPane.showMessageDialog(null, "Returning to previos menu.");
+            JOptionPane.showMessageDialog(null, "Returning to previous menu.");
             exit = true;
          }
          else{
@@ -437,57 +455,11 @@ public class HipHipCars{
       System.exit(0);
    }
    
-   public static void readFile(ArrayList<Customer> cList){
-      try{
-         Scanner scan = new Scanner(new FileInputStream(new File("")));
-         do{
-            cList.add(generateCustomer(scan.nextLine()));
-         }while(scan.hasNextLine());
-         scan.close();
-      }catch(FileNotFoundException e){
-         JOptionPane.showMessageDialog(null, "File does not exist or was not found.");
-      }
-   }
-   
-   public static Customer generateCustomer(String data){
-      String[] values = data.split("%%");
-      Customer temp = populateCustomer(values[0]);
-      for(int x=1;x<values.length;x++){
-         temp.addVehicle(populateVehicle(values[x]));
-      }
-      return temp;
-   }
-   
-   public static Customer populateCustomer(String data){
-      String[] values = data.split("&&");
-      int ID = Integer.parseInt(values[0]);
-      Customer temp = new Customer(values[1], values[2], values[3], ID);
-      return temp;
-   }
-   
-   public static Vehicle populateVehicle(String data){
-      String[] values = data.split("&&");
-      boolean tires = false;
-      boolean oil = false;
-      Vehicle temp = null;
-      if(values[5].equals("true")){
-         tires = true;
-      }
-      if(values[6].equals("true")){
-         oil = true;
-      }
-      if(values[0].equals("SUV")){
-         temp = new SUV(values[1], values[2], values[3], values[4], tires, oil);
-      }
-      else if(values[0].equals("Sedan")){
-         temp = new Sedan(values[1], values[2], values[3], values[4], tires, oil);
-      }
-      return temp;
-   }
    
    public static void generateReceipt(Customer c, Vehicle v, String serviceType, double cost) {
-      String receipt = "Customer: " + c.getName();	   
-      receipt += "\nVehicle Serviced: " + v.getPlateNum() + "\nService Performed: " + serviceType + "\nTotal Cost: $" + cost;
-      JOptionPane.showMessageDialog(null, receipt);
+	   String receipt = "Customer: " + c.getName();	   
+	   receipt += "\nVehicle Serviced: " + v.getPlateNum() + "\nService Performed: " + serviceType + "\nTotal Cost: $" + String.format("%.2f", cost);
+	   JOptionPane.showMessageDialog(null, receipt);
    }
+   
 }
