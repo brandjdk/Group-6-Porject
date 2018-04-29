@@ -57,15 +57,11 @@ public class HipHipCars{
       		   
          int choice = JOptionPane.showConfirmDialog(null, "Would you like to add a vehicle now?", "Add a Vehicle?", JOptionPane.YES_NO_OPTION);
          if (choice == JOptionPane.YES_OPTION) {
-         		   
+            addVehicle(newCustomer);
          }
          else {
             return;
-         }
-      		   
-      		   
-      		   
-      		   
+         }   
       }
       catch (IllegalArgumentException e) {
          JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
@@ -440,16 +436,15 @@ public class HipHipCars{
    public static void readFile(ArrayList<Customer> cList){
       try{
          Scanner scan = new Scanner(new FileInputStream(new File("customer.txt")));
-         String temp = scan.nextLine();
-         if(!temp.equals("")){
-            cList.add(generateCustomer(temp));
-            while(scan.hasNextLine()){
-               cList.add(generateCustomer(scan.nextLine()));
-            }
-         }
+         do{
+            cList.add(generateCustomer(scan.nextLine()));
+         }while(scan.hasNextLine());
          scan.close();
       }catch(FileNotFoundException e){
          JOptionPane.showMessageDialog(null, "File does not exist or was not found.");
+      }
+      catch(NoSuchElementException e){
+         
       }
    }
    
