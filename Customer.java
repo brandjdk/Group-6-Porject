@@ -45,7 +45,10 @@ public class Customer {
       vehicleList = new HashMap<String, Vehicle>();
    }
 	
-	
+   public Customer(){
+      vehicleList = new HashMap<String, Vehicle>();
+      this.id = lastId++;
+   }
 	
    public void setName(String name) {
       if (name == null || name.equals("")) {
