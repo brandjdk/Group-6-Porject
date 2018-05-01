@@ -434,7 +434,13 @@ public class HipHipCars {
 			JOptionPane.showMessageDialog(null, "Vehicle could not be found!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+	
+	/*
+	 * This method calculate the price of an oil change based on a customer's vehicle. A receipt is generated listing information about the 
+	 * service and what car it was performed on.
+	 * @param Customer c
+	 * 
+	 */
 	public static void doAnOilChange(Customer c) {
 		final double BASIC_COST = 30.00;
 		final double SYNTH_COST = 45.00;// for synthetic oil.
@@ -450,7 +456,13 @@ public class HipHipCars {
 		}
 		generateReceipt(c, work, "Oil Change", total);
 	}
-
+	
+	
+	/*
+	 * This method calculates the cost of performing car detailing. It will generate a receipt with the information.
+	 * @param Customer c
+	 *
+	 */
 	public static void performCarDetailing(Customer c) {
 		final double SUV_COST = 24.85;
 		final double SEDAN_COST = 17.85;
@@ -467,7 +479,12 @@ public class HipHipCars {
 
 		generateReceipt(c, work, "Car Detail", total);
 	}
-
+	
+	/*
+	 * This method calculates the cost of performing a tire rotation. It will generate a receipt with the information.
+	 * @param Customer c
+	 *
+	 */
 	public static void rotateTire(Customer c) {
 		final double OVERSIZE_FEE = 12.00;
 		final double ROTATION_COST = 25.00;
@@ -481,7 +498,12 @@ public class HipHipCars {
 		}
 		generateReceipt(c, work, "Rotate Tires", total);
 	}
-
+	
+	/*
+	 * This method calculates the cost of performing a car inspection. It will generate a receipt with the information.
+	 * @param Customer c
+	 *
+	 */
 	public static void doInspection(Customer c) {
 		final double INSPECT_COST = 16.00;
 		Vehicle work = chooseVehicle(c);
@@ -493,7 +515,13 @@ public class HipHipCars {
 		generateReceipt(c, work, "Inspection", total);
 
 	}
-
+	
+	/*
+	 * This method will allow the user to select a vehicle from the customer's list of vehicles. The user is notified if the vehicle could not be
+	 * found
+	 * @param Customer c
+	 *
+	 */
 	public static Vehicle chooseVehicle(Customer c) {
 		Vehicle temp = null;
 		boolean exit = false;
@@ -528,18 +556,34 @@ public class HipHipCars {
 		}
 		return temp;
 	}
-
+	
+	/*
+	 * This method returns the sales tax which is 6%.
+	 * @return double 1.06
+	 *
+	 */
 	public static double getTax() {
 		return 1.06;
 	}
 
+	/*
+	 * This method terminates the program and saves the customer list to a file before exiting.
+	 * @param ArrayList cList
+	 *
+	 */
 	public static void Terminate(ArrayList<Customer> cList) {
 
 		addCustomerToFile(cList);
 
 		System.exit(0);
 	}
-
+	
+	
+	/*
+	 * This method reads customer and vehicle information from a text file a populates the customer list. 
+	 * @param ArrayList cList
+	 *
+	 */
 	public static void readFile(ArrayList<Customer> cList) {
 		try {
 			Scanner scan = new Scanner(new FileInputStream(new File("customer.txt")));
@@ -553,7 +597,13 @@ public class HipHipCars {
 
 		}
 	}
-
+	
+	/*
+	 * This method will generate a customer object and the list of vehicles from the text file.
+	 * @param String data
+	 * @return Customer temp
+	 *
+	 */
 	public static Customer generateCustomer(String data) {
 		String[] values = data.split("%%");
 		Customer temp = populateCustomer(values[0]);
@@ -562,7 +612,13 @@ public class HipHipCars {
 		}
 		return temp;
 	}
-
+	
+	/*
+	 * This method will create a Customer object from the text file
+	 * @param String data
+	 * @return Customer temp;
+	 *
+	 */
 	public static Customer populateCustomer(String data) {
 		String[] values = data.split("&&");
 		int ID = Integer.parseInt(values[0]);
@@ -570,6 +626,12 @@ public class HipHipCars {
 		return temp;
 	}
 
+	/*
+	 * This method will populate a vehicle with information from the text file
+	 * @param String data
+	 * @return Vehicle temp
+	 *
+	 */
 	public static Vehicle populateVehicle(String data) {
 		String[] values = data.split("&&");
 		boolean tires = false;
@@ -589,6 +651,11 @@ public class HipHipCars {
 		return temp;
 	}
 
+	/*
+	 * This method generates a receipt with information about the customer and their vehicle that was serviced. The receipt also shows the cost
+	 * of the service performed.
+	 * @param Customer c, Vehicle v, String serviceType, double cost
+	 */
 	public static void generateReceipt(Customer c, Vehicle v, String serviceType, double cost) {
 		String receipt = "Customer: " + c.getName();
 		receipt += "\nVehicle Serviced: " + v.getPlateNum() + "\nService Performed: " + serviceType + "\nTotal Cost: $"
@@ -596,6 +663,11 @@ public class HipHipCars {
 		JOptionPane.showMessageDialog(null, receipt);
 	}
 
+	/*
+	 * This method adds the list of customer objects to a text file for storage. 
+	 * @param ArrayList cList
+	 *
+	 */
 	public static void addCustomerToFile(ArrayList<Customer> cList) {
 
 		FileOutputStream fos = null;
