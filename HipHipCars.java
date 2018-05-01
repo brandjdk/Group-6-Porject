@@ -33,74 +33,74 @@ public class HipHipCars{
    }
    
    public static void AddCustomer(ArrayList<Customer> cList) {
-	  
-	   Customer newCustomer = new Customer();
-	  
-	  boolean isNameValid = false;
-	  while (!isNameValid) {
-		  try {
-			  newCustomer.setName(JOptionPane.showInputDialog("Enter the customer's name: "));
-			  isNameValid = true;
-		  }
-		  catch (IllegalArgumentException e) {
-			  JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-			  isNameValid = false;
-		  }
-	  }
-	  
-	  boolean isPhoneValid = false;
-	  while (!isPhoneValid) {
-		  try {
-			  newCustomer.setPhoneNum(JOptionPane.showInputDialog("Enter the customer's phone number (Ex: XXXXXXXXXX): "));
-			  isPhoneValid = true;
-		  }
-		  catch (IllegalArgumentException e) {
-			  JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-			  isPhoneValid = false;
-		  }
-	  }
-	  
-	  boolean isAddressValid = false;
-	  while (!isAddressValid) {
-		  try {
-			  newCustomer.setAddress(JOptionPane.showInputDialog("Enter the customer's address: "));
-			  isAddressValid = true;
-		  }
-		  catch (IllegalArgumentException e) {
-			  JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-			  isAddressValid = false;
-		  }
-	  }
-	  
-         boolean isEquals = false;
-         for (Customer customer : cList) {
-            if (newCustomer.equals(customer)) {
-               isEquals = true;
-            }
+     
+      Customer newCustomer = new Customer();
+     
+      boolean isNameValid = false;
+      while (!isNameValid) {
+         try {
+            newCustomer.setName(JOptionPane.showInputDialog("Enter the customer's name: "));
+            isNameValid = true;
          }
-      		   
-         if (isEquals) {
-            JOptionPane.showMessageDialog(null, "Customer is a duplicate!");
+         catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            isNameValid = false;
          }
-         else {
-            cList.add(newCustomer);
-            JOptionPane.showMessageDialog(null, "Customer added successfully!");
+      }
+     
+      boolean isPhoneValid = false;
+      while (!isPhoneValid) {
+         try {
+            newCustomer.setPhoneNum(JOptionPane.showInputDialog("Enter the customer's phone number (Ex: XXXXXXXXXX): "));
+            isPhoneValid = true;
          }
+         catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            isPhoneValid = false;
+         }
+      }
+     
+      boolean isAddressValid = false;
+      while (!isAddressValid) {
+         try {
+            newCustomer.setAddress(JOptionPane.showInputDialog("Enter the customer's address: "));
+            isAddressValid = true;
+         }
+         catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            isAddressValid = false;
+         }
+      }
+     
+      boolean isEquals = false;
+      for (Customer customer : cList) {
+         if (newCustomer.equals(customer)) {
+            isEquals = true;
+         }
+      }
+      		   
+      if (isEquals) {
+         JOptionPane.showMessageDialog(null, "Customer is a duplicate!");
+      }
+      else {
+         cList.add(newCustomer);
+         JOptionPane.showMessageDialog(null, "Customer added successfully!");
+      }
       		   
       		   
-         int choice = JOptionPane.showConfirmDialog(null, "Would you like to add a vehicle now?", "Add a Vehicle?", JOptionPane.YES_NO_OPTION);
-         while(choice == JOptionPane.YES_OPTION) {
-        	 addVehicle(newCustomer);
-        	 choice = JOptionPane.showConfirmDialog(null, "Would you like to add another vehicle?", "Another vehicle?", JOptionPane.YES_NO_OPTION);
-         }      		   
+      int choice = JOptionPane.showConfirmDialog(null, "Would you like to add a vehicle now?", "Add a Vehicle?", JOptionPane.YES_NO_OPTION);
+      while(choice == JOptionPane.YES_OPTION) {
+         addVehicle(newCustomer);
+         choice = JOptionPane.showConfirmDialog(null, "Would you like to add another vehicle?", "Another vehicle?", JOptionPane.YES_NO_OPTION);
+      }      		   
       		   
    }
    
    public static void RemoveCustomer(ArrayList<Customer> cList){
-	  if (cList.isEmpty()) {
-		  JOptionPane.showMessageDialog(null, "Customer list is empty!");
-		  return;
-	  }
+      if (cList.isEmpty()) {
+         JOptionPane.showMessageDialog(null, "Customer list is empty!");
+         return;
+      }
       String name = JOptionPane.showInputDialog("What is the name of the customer you wish to remove?");
       String phoneNum = JOptionPane.showInputDialog("What is the phone number of the customer you wish to remove?");
       Customer toRemove = null;
@@ -115,7 +115,7 @@ public class HipHipCars{
                found = true;
             }
             else {
-            	++index;
+               ++index;
             }
          }
          if(!found){
@@ -135,37 +135,37 @@ public class HipHipCars{
    }
    
    public static void AccessCustomer(ArrayList<Customer> cList){
-	   if (cList.isEmpty()) {
-			  JOptionPane.showMessageDialog(null, "Customer list is empty!");
-			  return;
-	   }
-	   String name = JOptionPane.showInputDialog("What is the name of the customer you wish to access?");
-	   String phoneNum = JOptionPane.showInputDialog("What is the phone number of the customer you wish to access?");
-	   Customer accessed = null;
-	   try{
-		   Iterator<Customer> cIterator = cList.iterator();
-		   boolean found = false;
-		   while(cIterator.hasNext() && !found){
-			   Customer temp = cIterator.next();
-			   if(temp.getName().equals(name) && temp.getPhoneNum().equals(phoneNum)){
-				   accessed = temp;
-				   found = true;
-			   }
-		   }
-		   if(!found){
-			   throw new Exception();
-		   }
-	   }
-	   catch(Exception e){
-		   JOptionPane.showMessageDialog(null, "The customer you tried to access was not found.\nReturnign to previous menu.");
-		       return;
-	   }
-	   if(accessed != null){
-		   accessMenu(accessed);
-	   }	
-	   else{
-		   JOptionPane.showMessageDialog(null, "The customer you tried to access was not found.\nReturning to previous menu.");
-	   }
+      if (cList.isEmpty()) {
+         JOptionPane.showMessageDialog(null, "Customer list is empty!");
+         return;
+      }
+      String name = JOptionPane.showInputDialog("What is the name of the customer you wish to access?");
+      String phoneNum = JOptionPane.showInputDialog("What is the phone number of the customer you wish to access?");
+      Customer accessed = null;
+      try{
+         Iterator<Customer> cIterator = cList.iterator();
+         boolean found = false;
+         while(cIterator.hasNext() && !found){
+            Customer temp = cIterator.next();
+            if(temp.getName().equals(name) && temp.getPhoneNum().equals(phoneNum)){
+               accessed = temp;
+               found = true;
+            }
+         }
+         if(!found){
+            throw new Exception();
+         }
+      }
+      catch(Exception e){
+         JOptionPane.showMessageDialog(null, "The customer you tried to access was not found.\nReturnign to previous menu.");
+         return;
+      }
+      if(accessed != null){
+         accessMenu(accessed);
+      }	
+      else{
+         JOptionPane.showMessageDialog(null, "The customer you tried to access was not found.\nReturning to previous menu.");
+      }
    }
    
    public static void accessMenu(Customer c){
@@ -364,7 +364,7 @@ public class HipHipCars{
          JOptionPane.showMessageDialog(null, "Vehicle with plate number: " + tempPlate + " was removed.", "Delete Confirmation", JOptionPane.INFORMATION_MESSAGE);
       }
       else {
-    	  JOptionPane.showMessageDialog(null, "Vehicle could not be found!", "Error", JOptionPane.ERROR_MESSAGE);
+         JOptionPane.showMessageDialog(null, "Vehicle could not be found!", "Error", JOptionPane.ERROR_MESSAGE);
       }
    }
    
@@ -436,8 +436,8 @@ public class HipHipCars{
       Object o = c;
       Map<String, Vehicle> vehicleList = c.getVehicles();
       if(vehicleList.isEmpty()){
-    	  JOptionPane.showMessageDialog(null, "There are no vehicles associated with this customer.");
-    	  return null;
+         JOptionPane.showMessageDialog(null, "There are no vehicles associated with this customer.");
+         return null;
       }
       Iterator keyIterate = vehicleList.keySet().iterator();
       String output = "Please enter the plate number associated with the vehicle you wish to access.\nOr enter -1 to cancel.";
@@ -470,7 +470,7 @@ public class HipHipCars{
    public static void Terminate(ArrayList<Customer> cList){
       
       addCustomerToFile(cList);
-	   
+      
       System.exit(0);
    }
    public static void readFile(ArrayList<Customer> cList){
@@ -500,7 +500,7 @@ public class HipHipCars{
    public static Customer populateCustomer(String data){
       String[] values = data.split("&&");
       int ID = Integer.parseInt(values[0]);
-      Customer temp = new Customer(values[1], values[2], values[3], ID);
+      Customer temp = new Customer(values[1], values[3], values[2], ID);
       return temp;
    }
    
@@ -525,39 +525,39 @@ public class HipHipCars{
    }
 
    public static void generateReceipt(Customer c, Vehicle v, String serviceType, double cost) {
-	   String receipt = "Customer: " + c.getName();	   
-	   receipt += "\nVehicle Serviced: " + v.getPlateNum() + "\nService Performed: " + serviceType + "\nTotal Cost: $" + String.format("%.2f", cost);
-	   JOptionPane.showMessageDialog(null, receipt);
+      String receipt = "Customer: " + c.getName();	   
+      receipt += "\nVehicle Serviced: " + v.getPlateNum() + "\nService Performed: " + serviceType + "\nTotal Cost: $" + String.format("%.2f", cost);
+      JOptionPane.showMessageDialog(null, receipt);
    }
 	
    public static void addCustomerToFile(ArrayList<Customer> cList) {
-	   
-	   FileOutputStream fos = null;
-	   PrintWriter pw = null;
-	   
-	   File file = new File("customer.txt");
-
-	   try {
-		fos = new FileOutputStream(file, true);
-		pw = new PrintWriter(fos);
-		
-		Iterator it = cList.iterator();
-			
-		while(it.hasNext()) {
-			
-			Customer next = (Customer) it.next();
-			pw.write(next.saveFormat() + "\r\n");		
-		}
-	
-	} catch (FileNotFoundException e) {
-		
-		e.printStackTrace();
-	}
-	   
-	
-	  pw.close();
-	   
-	   
+      
+      FileOutputStream fos = null;
+      PrintWriter pw = null;
+      
+      File file = new File("customer.txt");
+   
+      try {
+         fos = new FileOutputStream(file, true);
+         pw = new PrintWriter(fos);
+      
+         Iterator it = cList.iterator();
+      	
+         while(it.hasNext()) {
+         
+            Customer next = (Customer) it.next();
+            pw.write(next.saveFormat() + "\r\n");		
+         }
+      
+      } catch (FileNotFoundException e) {
+      
+         e.printStackTrace();
+      }
+      
+   
+      pw.close();
+      
+      
    }
    
 	
