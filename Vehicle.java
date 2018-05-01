@@ -4,11 +4,13 @@
  * Get, set, and print out methods are provided.
  * @authors Austin, Brandon, Tadhg
  */
+import java.util.ArrayList;
 
 public abstract class Vehicle{
    private String plateNum, make, model, color;
    private Boolean oversizedTires, syntheticOil;
    private static int numVehicles = 0;
+   private static ArrayList<String> plateNumbers = new ArrayList<String>();
    
    /**
 	  * Default Vehicle Constructor.
@@ -28,6 +30,7 @@ public abstract class Vehicle{
 	  */
    public Vehicle(String plateNum, String make, String model, String color, boolean oversizedTires, boolean syntheticOil){
       this.plateNum = plateNum;
+      plateNumbers.add(plateNum);
       this.make = make;
       this.model = model;
       this.color = color;
@@ -46,6 +49,7 @@ public abstract class Vehicle{
          throw new IllegalArgumentException("Plate number can't be blank!");
       }
       this.plateNum = plateNum;
+      plateNumbers.add(plateNum);
    }
    
    /**
@@ -162,6 +166,15 @@ public abstract class Vehicle{
   	* @returns string type.
   	*/ 
    public abstract String getType();
+   
+   public static boolean checkPlateNum(String plateNum){
+      if(plateNumbers.indexOf(plateNum) == -1){
+         return true;
+      }
+      else{
+         return false;
+      }
+   }
    
    /**
  	  * Returns an output which holds all of the vehicle information.
