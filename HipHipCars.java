@@ -386,7 +386,11 @@ public class HipHipCars {
 	 * @param Customer c
 	 */
    public static void removeVehicle(Customer c) {
-   
+      if (c.getVehicles().isEmpty()) {
+         JOptionPane.showMessageDialog(null, "There are no vehicles associated with this customer.", "Error",
+            	JOptionPane.ERROR_MESSAGE);
+         return;
+      }
       String plateNum = null;
    
       try {
