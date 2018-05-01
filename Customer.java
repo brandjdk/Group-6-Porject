@@ -1,4 +1,3 @@
-
 /**
 * The Customer class is used to create a customer object that stores name, id, phone number, address, and vehicles.
 * Get, set, validate, and print out methods are provided as well as vehicle add and removal methods. 
@@ -283,5 +282,4 @@ public class Customer {
 			return false;
 		}
 	}
-
 }
