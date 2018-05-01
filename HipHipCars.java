@@ -475,6 +475,7 @@ public class HipHipCars {
       if (work.hasOversizedTires()) {
          total += OVERSIZE_FEE;
       }
+      total = total * getTax();
       generateReceipt(c, work, "Rotate Tires", total);
    }
 	
