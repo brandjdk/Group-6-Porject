@@ -289,7 +289,7 @@ public class HipHipCars {
          
             plateNum = JOptionPane.showInputDialog("Enter Vehicle Plate Number:");
          
-            if (c.getVehicles().containsKey(plateNum)) {
+            if (!Vehicle.checkPlateNum(plateNum)) {
                plateNum = null;
                JOptionPane.showMessageDialog(null,
                   	"The entered plate number is already in use. Please enter a different one.", "Error",
