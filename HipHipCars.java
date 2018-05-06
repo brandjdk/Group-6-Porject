@@ -556,9 +556,8 @@ public class HipHipCars {
 	 *
 	 */
    public static void Terminate(ArrayList<Customer> cList) {
-   
-      addCustomerToFile(cList);
-   
+	  sortCustomerList(cList);
+      addCustomerToFile(cList); 
       System.exit(0);
    }
 	
@@ -678,5 +677,22 @@ public class HipHipCars {
    
       pw.close();
    
+   }
+   /*
+    * Sorts the customer list alphabetically using insertion sort
+    * 
+    */
+   public static ArrayList<Customer> sortCustomerList(ArrayList<Customer> cList) {
+	   int n = cList.size();
+	   for (int i = 1; i < n; i++) {
+		   Customer cust = cList.get(i);
+		   int j = i;
+		   while (j > 0 && cList.get(j - 1).getName().compareTo(cust.getName()) > 0) {
+			   cList.set(j, cList.get(j - 1));
+			   j--;
+		   }
+		   cList.set(j, cust);	   
+	   }
+	   return cList;
    }
 }
