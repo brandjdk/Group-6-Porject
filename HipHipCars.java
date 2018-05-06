@@ -34,6 +34,7 @@ public class HipHipCars {
          switch (choice) {
             case "1":
                AddCustomer(cList);
+               sortCustomerList(cList);
                break;
             case "2":
                RemoveCustomer(cList);
@@ -129,31 +130,9 @@ public class HipHipCars {
       }
       String name = JOptionPane.showInputDialog("What is the name of the customer you wish to remove?");
       String phoneNum = JOptionPane.showInputDialog("What is the phone number of the customer you wish to remove?");
-      Customer toRemove = null;
-      int index = 0;
-      try {
-         Iterator<Customer> cIterator = cList.iterator();
-         boolean found = false;
-         while (cIterator.hasNext() && !found) {
-            Customer temp = cIterator.next();
-            if (temp.getName().equals(name) && temp.getPhoneNum().equals(phoneNum)) {
-               toRemove = temp;
-               found = true;
-            } else {
-               ++index;
-            }
-         }
-         if (!found) {
-            throw new Exception();
-         }
-      } catch (Exception e) {
-         JOptionPane.showMessageDialog(null,
-            	"The customer you tried to access was not found.\nReturning to previous menu.", "Error",
-            	JOptionPane.ERROR_MESSAGE);
-         return;
-      }
+      Customer toRemove = searchCustomer(cList, name, phoneNum);
       if (toRemove != null) {
-         cList.remove(index);
+         cList.remove(toRemove);
          JOptionPane.showMessageDialog(null, "Customer has been removed.");
       } else {
          JOptionPane.showMessageDialog(null,
@@ -176,26 +155,7 @@ public class HipHipCars {
       }
       String name = JOptionPane.showInputDialog("What is the name of the customer you wish to access?");
       String phoneNum = JOptionPane.showInputDialog("What is the phone number of the customer you wish to access?");
-      Customer accessed = null;
-      try {
-         Iterator<Customer> cIterator = cList.iterator();
-         boolean found = false;
-         while (cIterator.hasNext() && !found) {
-            Customer temp = cIterator.next();
-            if (temp.getName().equals(name) && temp.getPhoneNum().equals(phoneNum)) {
-               accessed = temp;
-               found = true;
-            }
-         }
-         if (!found) {
-            throw new Exception();
-         }
-      } catch (Exception e) {
-         JOptionPane.showMessageDialog(null,
-            	"The customer you tried to access was not found.\nReturning to previous menu.", "Error",
-            	JOptionPane.ERROR_MESSAGE);
-         return;
-      }
+      Customer accessed = searchCustomer(cList, name, phoneNum);
       if (accessed != null) {
          accessMenu(accessed);
       } else {
@@ -556,7 +516,7 @@ public class HipHipCars {
 	 *
 	 */
    public static void Terminate(ArrayList<Customer> cList) {
-	  sortCustomerList(cList);
+      sortCustomerList(cList);
       addCustomerToFile(cList); 
       System.exit(0);
    }
@@ -683,16 +643,34 @@ public class HipHipCars {
     * 
     */
    public static ArrayList<Customer> sortCustomerList(ArrayList<Customer> cList) {
-	   int n = cList.size();
-	   for (int i = 1; i < n; i++) {
-		   Customer cust = cList.get(i);
-		   int j = i;
-		   while (j > 0 && cList.get(j - 1).getName().compareTo(cust.getName()) > 0) {
-			   cList.set(j, cList.get(j - 1));
-			   j--;
-		   }
-		   cList.set(j, cust);	   
-	   }
-	   return cList;
+      int n = cList.size();
+      for (int i = 1; i < n; i++) {
+         Customer cust = cList.get(i);
+         int j = i;
+         while (j > 0 && cList.get(j - 1).getName().compareTo(cust.getName()) > 0) {
+            cList.set(j, cList.get(j - 1));
+            j--;
+         }
+         cList.set(j, cust);	   
+      }
+      return cList;
+   }
+   
+   public static Customer searchCustomer(ArrayList<Customer> cList, String name, String phoneNum){
+      int start = 0;
+      int end = cList.size();
+      while(start < end){
+         int mid = (start + end)/2;
+         if(name.equals(cList.get(mid).getName()) && phoneNum.equals(cList.get(mid).getPhoneNum())){
+            return cList.get(mid);
+         }
+         else if(name.compareTo(cList.get(mid).getName()) < 0){
+            end = mid;
+         }
+         else{
+            start = mid + 1;
+         }
+      }
+      return null;
    }
 }
