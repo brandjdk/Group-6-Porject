@@ -638,9 +638,10 @@ public class HipHipCars {
       pw.close();
    
    }
+   
    /*
     * Sorts the customer list alphabetically using insertion sort
-    * 
+    * @param ArrayList cList
     */
    public static ArrayList<Customer> sortCustomerList(ArrayList<Customer> cList) {
       int n = cList.size();
@@ -656,6 +657,13 @@ public class HipHipCars {
       return cList;
    }
    
+   /*
+    * Searches through the customer list using a binary search on the name of a customer.
+    * Also checks if the phone number of the customer matches the one passed in.
+    * Returns null if no customer is found.
+    * @param ArrayList cList, String name, Strig phoneNum
+    * @return Customer found
+    */
    public static Customer searchCustomer(ArrayList<Customer> cList, String name, String phoneNum){
       int start = 0;
       int end = cList.size();
